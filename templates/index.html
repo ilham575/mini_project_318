@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Student Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: white;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>คาดการณ์ผลการเรียนของนักเรียน</h1>
+    <form id="studentForm" method="POST">
+        <div id="error" class="error"></div>
+
+        <label for="attendance">Attendance:</label>
+        <input type="text" name="attendance" id="attendance" required oninput="validateNumber(this)">
+
+        <label for="assignment_completion">Assignment Completion:</label>
+        <input type="text" name="assignment_completion" id="assignment_completion" required oninput="validateNumber(this)">
+
+        <label for="midterm_score">Midterm Score:</label>
+        <input type="text" name="midterm_score" id="midterm_score" required oninput="validateNumber(this)">
+
+        <label for="final_score">Final Score:</label>
+        <input type="text" name="final_score" id="final_score" required oninput="validateNumber(this)">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateNumber(input) {
+            const errorDiv = document.getElementById('error');
+            if (isNaN(input.value)) {
+                errorDiv.innerHTML = "กรุณากรอกเฉพาะตัวเลขเท่านั้น!";
+                input.style.borderColor = "red";
+            } else {
+                errorDiv.innerHTML = "";
+                input.style.borderColor = "";
+            }
+        }
+
+        document.getElementById('studentForm').onsubmit = function(event) {
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let isValid = true;
+            inputs.forEach(input => {
+                if (isNaN(input.value)) {
+                    isValid = false;
+                    input.style.borderColor = "red";
+                }
+            });
+
+            if (!isValid) {
+                document.getElementById('error').innerHTML = "กรุณาตรวจสอบให้แน่ใจว่าได้กรอกตัวเลขทั้งหมด!";
+                event.preventDefault(); // ป้องกันการส่งฟอร์มหากมีข้อผิดพลาด
+            }
+        }
+    </script>
+</body>
+</html>

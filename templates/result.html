@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .result {
+            background-color: white;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .prediction {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .passed {
+            color: #28a745; /* Green for Passed */
+        }
+        .failed {
+            color: #dc3545; /* Red for Failed */
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .recommendation {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>ผลการคาดการณ์</h1>
+    <div class="result">
+        <p>นักเรียนนี้คาดว่าจะ: <span class="prediction {% if result == 'Passed' %}passed{% else %}failed{% endif %}">{{ result }}</span></p>
+
+        {% if result == 'Failed' %}
+            <h2>คำแนะนำ</h2>
+            <p class="recommendation">{{ recommendation }}</p>
+        {% endif %}
+        
+        <a href="/">กลับไปยังหน้าหลัก</a>
+    </div>
+</body>
+</html>
